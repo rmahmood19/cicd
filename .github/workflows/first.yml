@@ -1,21 +1,33 @@
 name: first
 
-on: push
-
+on:
+  push:
+    branches: 
+    - 'master'
 jobs:
   job1: 
     name: first job
     runs-on: ubuntu-latest
     steps:
-      - name: Step one
-        uses: actions/checkout@v2
-      - name: Step two
-        run: env | sort
+    - name: step one
+      run: date
+
   job2: 
     name: second job
     runs-on: windows-latest
     steps:
-      - name: Step one
-        uses: actions/checkout@v2
-      - name: Step two
-        run: "Get-children Env: | Sort-Object Name"
+    - name: step one
+      run: date
+  
+  job3: 
+    name: third job
+    runs-on: macos-latest
+    steps:
+    - name: step one
+      run: date
+  job4:
+   needs: [job1, job2, job3]
+   runs-on: macos-latest
+   steps:
+   - name: step one
+     run: date
